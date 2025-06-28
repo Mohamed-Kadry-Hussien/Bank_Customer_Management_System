@@ -18,12 +18,13 @@ extern int customer_count;
 
 void load_data();
 void save_data();
-void create_customer();
-void edit_customer();
+void create_customer(Customer *customers, int *customer_count);
+void edit_customer(Customer *customers, int *customer_count);
 void print_customer_data();
 void delete_customer();
 void deposit();
 void withdraw();
 void transfer_money();
+int find_customer(Customer *customers, int customer_count, int id);
 
 #endif
