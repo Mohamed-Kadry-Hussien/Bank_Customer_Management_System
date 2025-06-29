@@ -38,3 +38,15 @@ void edit_customer(Customer *customers, int *customer_count){
     scanf("%s", customers[index].phone);
     printf("Customer updated successfully.\n");
 }
+
+void save_data(Customer *customers, int *customer_count, char *file_name){
+    FILE *file = fopen(file_name, "w");
+    if(!file){
+        printf("Error while opening the file!!!");
+        return;
+    }
+    for(int i = 0; i < *customer_count; i++){
+        fprintf(file, "%d,%s,%s,%.2f\n", customers->id, customers->name, customers->phone, customers->balance);
+    }
+    fclose(file);
+}

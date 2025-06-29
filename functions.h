@@ -16,8 +16,8 @@ typedef struct {
 extern Customer customers[MAX_CUSTOMERS];
 extern int customer_count;
 
-void load_data();
-void save_data();
+int load_data(Customer *customers, char *file_name);
+void save_data(Customer *customers, int *customer_count, char *file_name);
 void create_customer(Customer *customers, int *customer_count);
 void edit_customer(Customer *customers, int *customer_count);
 void print_customer_data();
