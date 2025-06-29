@@ -6,7 +6,8 @@
 
 #define MAX_CUSTOMERS 100
 
-typedef struct {
+typedef struct
+{
     int id;
     char name[100];
     char phone[20];
@@ -24,6 +25,7 @@ void print_customer_data();
 void delete_customer();
 void deposit();
 void withdraw();
-void transfer_money();
+void transfer_money(Customer *customers, int ID1, int ID2, double amount, int customer_count);
+int find_customer(Customer *customers, int customer_count, int id);
 
 #endif
