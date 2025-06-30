@@ -1,7 +1,8 @@
-// main.c
+// Used libraries and headers
 #include "functions.h"
 #include <stdlib.h>
 
+// Function for UI
 void display_menu()
 {
     printf("\n\n");
@@ -24,14 +25,16 @@ void display_menu()
 
 int main()
 {
-    int choice;
-    load_data();
+    int choice;  // Variable to store user's choice
+    load_data();  // Load customer data from file at the start
 
+    // Entering the program ;oop until the user chooses to exit
     do
     {
         display_menu();
         scanf("%d", &choice);
 
+        // Switch case to handle user's choice
         switch (choice)
         {
         case 1:
@@ -67,11 +70,11 @@ int main()
         if (choice != 8)
         {
             printf("\nPress Enter to continue...");
-            while (getchar() != '\n')
+            while (getchar() != '\n') // Clear the input buffer
                 ;
             getchar();
         }
-        save_data(customers, &customer_count, "customers.txt");
+        save_data(customers, &customer_count, "customers.txt");  // Save data after each operation
 
     } while (choice != 8);
 
