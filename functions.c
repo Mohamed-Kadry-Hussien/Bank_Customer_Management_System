@@ -51,7 +51,6 @@ void load_data()
     fclose(file);
 }
 
-
 void save_data(Customer *customers, int *customer_count, char *file_name)
 {
     FILE *file = fopen(file_name, "w");
@@ -62,7 +61,7 @@ void save_data(Customer *customers, int *customer_count, char *file_name)
     }
     for (int i = 0; i < *customer_count; i++)
     {
-    fprintf(file, "%d,%s,%s,%.2f\n", customers[i].id, customers[i].name, customers[i].phone, customers[i].balance);
+        fprintf(file, "%d,%s,%s,%.2f\n", customers[i].id, customers[i].name, customers[i].phone, customers[i].balance);
     }
 
     fclose(file);
@@ -106,30 +105,30 @@ void create_customer(Customer *customers, int *customer_count)
             }
         }
     } while (is_unique);
- 
+
     do
     {
-        
+
         printf("Enter your name : ");
         scanf(" %[^\n]", new_customer->name);
-        if(!is_valid_name(new_customer->name))
+        if (!is_valid_name(new_customer->name))
         {
             printf("Invalid name.\n");
         }
-        
-    }while(!is_valid_name(new_customer->name));
-    
+
+    } while (!is_valid_name(new_customer->name));
+
     do
     {
-        
+
         printf("Enter your phone number: ");
         scanf("%s", new_customer->phone);
-        if(!is_valid_phone(new_customer->phone))
+        if (!is_valid_phone(new_customer->phone))
         {
             printf("Invalid phone.\n");
         }
 
-    }while(!is_valid_phone(new_customer->phone));
+    } while (!is_valid_phone(new_customer->phone));
     do
     {
         printf("Enter your balance: ");
@@ -154,29 +153,29 @@ void edit_customer(Customer *customers, int *customer_count)
         printf("Customer is not found.\n");
         return;
     }
-     do
+    do
     {
-        
+
         printf("Enter your new name : ");
         scanf(" %[^\n]", customers[index].name);
-        if(!is_valid_name(customers[index].name))
+        if (!is_valid_name(customers[index].name))
         {
             printf("Invalid name.\n");
         }
-        
-    }while(!is_valid_name(customers[index].name));
-    
+
+    } while (!is_valid_name(customers[index].name));
+
     do
     {
-        
+
         printf("Enter new phone number: ");
         scanf("%s", customers[index].phone);
-        if(!is_valid_phone(customers[index].phone))
+        if (!is_valid_phone(customers[index].phone))
         {
             printf("Invalid phone.\n");
         }
 
-    }while(!is_valid_phone(customers[index].phone));
+    } while (!is_valid_phone(customers[index].phone));
     printf("Customer updated successfully.\n");
 }
 
@@ -298,10 +297,23 @@ void withdraw()
     save_data(customers, &customer_count, "customers.txt");
     printf("Withdrawal completed successfully.\n");
 }
-void transfer_money(Customer *customers, int ID1, int ID2, double amount, int customer_count)
+void transfer_money(Customer *customers, int customer_count)
 {
-    int index1 = find_customer(customers, customer_count, ID1);
-    int index2 = find_customer(customers, customer_count, ID2);
+    if (customer_count < 2)
+    {
+        printf("Not enough customers to transfer money.\n");
+        return;
+    }
+    int from_id, to_id;
+    double amount;
+    printf("Enter sender ID: ");
+    scanf("%d", &from_id);
+    printf("Enter recipient ID: ");
+    scanf("%d", &to_id);
+    printf("Enter amount to transfer: ");
+    scanf("%lf", &amount);
+    int index1 = find_customer(customers, customer_count, from_id);
+    int index2 = find_customer(customers, customer_count, to_id);
     if (index1 == -1 || index2 == -1)
     {
         printf("Customer not found\n");
@@ -324,5 +336,5 @@ void transfer_money(Customer *customers, int ID1, int ID2, double amount, int cu
     }
     customers[index1].balance -= amount;
     customers[index2].balance += amount;
-    printf("Transfer of %.2f from customer %d to customer %d completed successfully.\n", amount, ID1, ID2);
+    printf("Transfer of %.2f from customer %d to customer %d completed successfully.\n", amount, from_id, to_id);
 }
